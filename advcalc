@@ -1,0 +1,196 @@
+
+import java.util.Scanner;
+
+import calculate.trig;
+import calculate.matrix;
+import calculate.equ;
+
+public class Advcal {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        trig t = new trig();
+        matrix m = new matrix();
+        equ e = new equ();
+
+        int choice;
+
+        do {
+
+            System.out.println("\n===== ADVANCED CALCULATOR =====");
+            System.out.println("1. Trigonometry");
+            System.out.println("2. Matrix Operations");
+            System.out.println("3. Equations");
+            System.out.println("4. Exit");
+
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+
+                    System.out.println("\nTRIGONOMETRY");
+                    System.out.println("1. Sin");
+                    System.out.println("2. Cos");
+                    System.out.println("3. Tan");
+                    System.out.println("4. Sec");
+                    System.out.println("5. Cosec");
+                    System.out.println("6. Cot");
+
+                    int ch = sc.nextInt();
+
+                    System.out.print("Enter angle: ");
+                    double angle = sc.nextDouble();
+
+                    switch (ch) {
+                        case 1:
+                            System.out.println(t.sin(angle));
+                            break;
+                        case 2:
+                            System.out.println(t.cos(angle));
+                            break;
+                        case 3:
+                            System.out.println(t.tan(angle));
+                            break;
+                        case 4:
+                            System.out.println(t.sec(angle));
+                            break;
+                        case 5:
+                            System.out.println(t.cosec(angle));
+                            break;
+                        case 6:
+                            System.out.println(t.cot(angle));
+                            break;
+                        default:
+                            System.out.println("Invalid choice");
+                    }
+                    break;
+
+                case 2:
+
+                    System.out.println("\nMATRIX OPERATIONS");
+                    System.out.println("1. Addition");
+                    System.out.println("2. Subtraction");
+                    System.out.println("3. Multiplication");
+                    System.out.println("4. Transpose");
+
+                    int op = sc.nextInt();
+
+                    if (op == 4) {
+
+                        System.out.print("Enter rows and columns: ");
+                        int r = sc.nextInt();
+                        int c = sc.nextInt();
+
+                        int[][] a = new int[r][c];
+
+                        System.out.println("Enter matrix elements:");
+
+                        for (int i = 0; i < r; i++) {
+                            for (int j = 0; j < c; j++) {
+                                a[i][j] = sc.nextInt();
+                            }
+                        }
+
+                        m.transpose(a, r, c);
+
+                    } else if (op >= 1 && op <= 3) {
+
+                        System.out.print("Enter rows and columns: ");
+                        int r = sc.nextInt();
+                        int c = sc.nextInt();
+
+                        int[][] a = new int[r][c];
+                        int[][] b = new int[r][c];
+
+                        System.out.println("Enter first matrix:");
+
+                        for (int i = 0; i < r; i++) {
+                            for (int j = 0; j < c; j++) {
+                                a[i][j] = sc.nextInt();
+                            }
+                        }
+
+                        int r2 = r;
+                        int c2 = c;
+
+                        if (op == 3) {
+                            System.out.print("Enter columns of second matrix: ");
+                            c2 = sc.nextInt();
+                        }
+
+                        if (op == 3) {
+                            b = new int[c][c2];
+                        }
+
+                        System.out.println("Enter second matrix:");
+
+                        for (int i = 0; i < c; i++) {
+                            for (int j = 0; j < c2; j++) {
+                                b[i][j] = sc.nextInt();
+                            }
+                        }
+
+                        if (op == 1)
+                            m.addition(a, b, r, c);
+
+                        else if (op == 2)
+                            m.subtraction(a, b, r, c);
+
+                        else
+                            m.multiplication(a, b, r, c, c2);
+
+                    } else {
+                        System.out.println("Invalid choice");
+                    }
+
+                    break;
+
+                case 3:
+
+                    System.out.println("\nEQUATIONS");
+                    System.out.println("1. Linear Equation");
+                    System.out.println("2. Quadratic Equation");
+
+                    int eq = sc.nextInt();
+
+                    if (eq == 1) {
+
+                        System.out.print("Enter a and b: ");
+                        double a = sc.nextDouble();
+                        double b = sc.nextDouble();
+
+                        System.out.println(
+                                "x = " + e.linear(a, b));
+
+                    } else if (eq == 2) {
+
+                        System.out.print("Enter a, b and c: ");
+                        double a = sc.nextDouble();
+                        double b = sc.nextDouble();
+                        double c = sc.nextDouble();
+
+                        e.quadratic(a, b, c);
+
+                    } else {
+                        System.out.println("Invalid choice");
+                    }
+
+                    break;
+
+                case 4:
+                    System.out.println("Thank you!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+
+        } while (choice != 4);
+
+        sc.close();
+    }
+}
